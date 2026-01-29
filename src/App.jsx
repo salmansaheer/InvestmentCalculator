@@ -10,19 +10,24 @@ function App() {
         expectedReturn: 10000,
         duration: 3
     })
-    function handleChange(inputIdentifier, value){
-        setUserInput((prevInput)=>{
-            return {
-                ...prevInput,
-                [inputIdentifier]: +value
-            }
-        })
-    }
+  const isInputValid = userInput.duration >0 && userInput.expectedReturn >0 && userInput.initialInvestment >=0 && userInput.annualInvestment >=0;
+  function handleChange(inputIdentifier, value){
+      setUserInput((prevInput)=>{
+          return {
+              ...prevInput,
+              [inputIdentifier]: +value
+          }
+      })
+  }
   return (
     <>
       <Header />
       <UserInput onChange={handleChange} userInput={userInput}/>
-      <Results input={userInput}/> 
+      {
+        isInputValid ? 
+        <Results input={userInput}/> :
+        <p style={{textAlign: 'center'}}>Please enter valid input values.</p>
+      }
     </>
   )
 }
